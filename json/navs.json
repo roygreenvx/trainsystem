@@ -1,4 +1,13 @@
 {
+	"trainManagement": [
+		{
+			"title": "培训列表",
+			"icon": "icon-text",
+			"href": "page/trains/trainsList.html",
+			"spread": false
+		}
+		
+	],
 	"contentManagement": [
 		{
 			"title": "文章列表",
@@ -7,44 +16,78 @@
 			"spread": false
 		},
 		{
-			"title": "图片管理",
-			"icon": "&#xe634;",
-			"href": "page/img/images.html",
+			"title": "连续添加文章",
+			"icon": "icon-text",
+			"href": "Modules/AddNewsDetailNext.html",
 			"spread": false
-		},
-		{
-			"title": "其他页面",
-			"icon": "&#xe630;",
-			"href": "",
-			"spread": false,
-			"children": [
-				{
-					"title": "404页面",
-					"icon": "&#xe61c;",
-					"href": "page/404.html",
-					"spread": false
-				},
-				{
-					"title": "登录",
-					"icon": "&#xe609;",
-					"href": "page/login/login.html",
-					"spread": false,
-					"target": "_blank"
-				}
-			]
 		}
+		,
+		{
+			"title": "连续编辑文章",
+			"icon": "icon-text",
+			"href": "Modules/EditNewsDetailNext.html",
+			"spread": false
+		}
+		
 	],
 	"memberCenter": [
 		{
-			"title": "用户中心",
+			"title": "互联网用户管理",
 			"icon": "&#xe612;",
-			"href": "page/user/userList.html",
+			"href": "CityCredit/UserModule/MaintainAreaUser.html",
+			"spread": false
+		}
+	],
+	"indicatordata": [
+		{
+			"title": "城市分项指数对比分析",
+			"icon": "icon-mokuai",
+			"href": "CityCredit/Modules/GetTargetCity.html",
+			"spread": false
+		},{
+			"title": "指标审核",
+			"icon": "icon-mokuai",
+			"href": "CityCredit/Modules/ExamineTargetPage.html",
+			"spread": false
+		},{
+			"title": "指标计算数据量统计",
+			"icon": "icon-mokuai",
+			"href": "CityCredit/Modules/GetTargetDetail.html",
 			"spread": false
 		},
 		{
-			"title": "会员等级",
-			"icon": "icon-vip",
-			"href": "page/user/userGrade.html",
+			"title": "指标计算详细数据",
+			"icon": "icon-mokuai",
+			"href": "CityCredit/Modules/GetTargetDataDetail.html",
+			"spread": false
+		},{
+			"title": "指标计算(NEW)",
+			"icon": "icon-mokuai",
+			"href": "CityCredit/Modules/GetTarget.html",
+			"spread": false
+		}
+		
+	],
+	"reporteddata": [
+		{
+			"title": "城市失信量化指数",
+			"icon": "icon-mokuai",
+			"href": "CityCredit/Modules/CityNoCreditQtzList.html",
+			"spread": false
+		},{
+			"title": "指标数据反馈",
+			"icon": "icon-mokuai",
+			"href": "http://203.207.118.25:81/page/ViewAppAttsInfos.html",
+			"spread": false
+		},{
+			"title": "联合惩戒对象",
+			"icon": "icon-mokuai",
+			"href": "http://203.207.118.25:81/page/LhcjDx.html",
+			"spread": false
+		},{
+			"title": "黑名单比对",
+			"icon": "icon-mokuai",
+			"href": "http://203.207.118.25:81/page/Hmdbd.html",
 			"spread": false
 		}
 	],
@@ -88,6 +131,31 @@
 			"href": "page/doc/navDoc.html",
 			"spread": false
 		}
+	],
+	"otherfunction": [
+		{
+			"title": "专题",
+			"icon": "icon-mokuai",
+			"href": "CityCredit/Modules/SpecialTopicPage.html",
+			"spread": false
+		},{
+			"title": "通知",
+			"icon": "icon-mokuai",
+			"href": "CityCredit/Modules/MaintainNoticeInfoList.html",
+			"spread": false
+		},{
+			"title": "操作日志",
+			"icon": "icon-mokuai",
+			"href": "CityCredit/Modules/ViewCityActionLog.aspx",
+			"spread": false
+		},
+		{
+			"title": "上传信用排名",
+			"icon": "icon-mokuai",
+			"href": "CityCredit/Modules/CreditValueUpload.aspx",
+			"spread": false
+		}
+		
 	]
 }
 

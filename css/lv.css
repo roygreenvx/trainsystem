@@ -1,0 +1,28 @@
+﻿
+.absolute{
+	height: 600px;
+    width: 650px;
+    background: green;
+    overflow: auto;
+    position: relative;
+    left:200px;
+    top:100px;
+}
+.fixed{
+	background-color: #ddd;
+    width: 100%;
+    height: 10px;
+    position: fixed;
+  	top:40px;
+      z-index:99999
+    /*不要设置top,left,bottom,right*/
+}
+.content{ /*为了撑起absolute的高度*/
+  float:left;
+  height:1800px;
+}
+.Show_Button {
+    cursor: pointer;
+     color:blue;
+    text-decoration:underline;
+}

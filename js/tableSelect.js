@@ -30,19 +30,19 @@ layui.define(['table', 'jquery', 'form'], function (exports) {
             }
 
             var t = elem.offset().top + elem.outerHeight();
-            if((t+310)>$(window).height()){
-                t=($(window).height()-310)+'px';
+            if((t+320)>$(window).height()){
+                t=($(window).height()-320)+'px';
             }else{
                 t+='px';
             }
             var l = elem.offset().left ;
-            if((l+400)>$(window).width()){
-                l=($(window).width()-400)+'px';
+            if((l+410)>$(window).width()){
+                l=($(window).width()-410)+'px';
             }else{
                 l+='px';
             }
             var tableName = "tableSelect_table_" + new Date().getTime();
-            var tableBox = '<div class="tableSelect layui-anim layui-anim-upbit" style="left:'+l+';top:'+t+';border: 1px solid #d2d2d2;background-color: #fff;box-shadow: 0 2px 4px rgba(0,0,0,.12);padding:10px 10px 0 10px;position: absolute;z-index: 66666666;margin: 5px 0;border-radius: 2px;">';
+            var tableBox = '<div class="tableSelect layui-anim layui-anim-upbit" style="left:' + l + ';top:' + t + ';border: 1px solid #d2d2d2;background-color: #fff;box-shadow: 0 2px 4px rgba(0,0,0,.12);padding:10px 10px 0 10px;position: absolute;z-index: ' + $(".layui-layer").css("z-index") + ';margin: 5px 0;border-radius: 2px;">';
                 tableBox += '<div class="tableSelectBar">';
                 tableBox += '<form class="layui-form" action="" style="display:inline-block;">';
                 tableBox += '<input style="display:inline-block;width:190px;height:30px;vertical-align:middle;margin-right:-1px;border: 1px solid #C9C9C9;" type="text" name="'+opt.searchKey+'" placeholder="'+opt.searchPlaceholder+'" autocomplete="off" class="layui-input"><button class="layui-btn layui-btn-sm layui-btn-primary tableSelect_btn_search" lay-submit lay-filter="tableSelect_btn_search"><i class="layui-icon layui-icon-search"></i></button>';
@@ -85,7 +85,7 @@ layui.define(['table', 'jquery', 'form'], function (exports) {
             
             //点击其他区域关闭
             $(document).mouseup(function(e){
-                var userSet_con = $(''+opt.elem+',.tableSelect');
+                var userSet_con = $('' + opt.elem + ',.tableSelect,.layui-table-tips');
                 if(!userSet_con.is(e.target) && userSet_con.has(e.target).length === 0){
                     tableBox.remove();
                 }

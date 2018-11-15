@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>文章列表--layui后台管理模板 2.0</title>
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="format-detection" content="telephone=no">
+	<link rel="stylesheet" href="../../layui/css/layui.css" media="all" />
+	<link rel="stylesheet" href="../../css/formSelects-v4.css" media="all" />
+	<link rel="stylesheet" href="../../css/public.css" media="all" />
+    <style>
+        body .layer-attupload .layui-layer-content iframe{
+	        position: inherit;
+		}
+    </style>
+</head>
+<body class="childrenBody">
+<form class="layui-form layui-row layui-col-space10" lay-filter="form-trains">
+	<div class="layui-col-md9 layui-col-xs12">
+        <input id="fdid" name="fdid" hidden>
+        <div class="layui-form-item magt3">
+            <label class="layui-form-label">名称</label>
+            <div class="layui-input-block">
+                <input type="text" name="fdPXName" class="layui-input" lay-verify="required" placeholder="请输入名称">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">讲师</label>
+            <div class="layui-input-block">
+                    <select name="fdTeacherID" class="select-zhengfumian" lay-verify="required">
+                        <option value="">请选择讲师</option>
+                        <option value="125">王老师</option>
+                    </select>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">学时</label>
+            <div class="layui-input-block">
+                <input type="text" name="fdClassHours" class="layui-input" placeholder="请输入学时" lay-verify="required">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">类型</label>
+            <div class="layui-input-block">
+                <input type="radio" name="fdPXType" value="1" title="普通培训" checked>
+                <input type="radio" name="fdPXType" value="2" title="委外培训" >
+            </div>
+        </div>
+		<div class="layui-form-item">
+			<label class="layui-form-label">备注</label>
+			<div class="layui-input-block">
+				<textarea class="layui-textarea" name="fdNote" style="min-height:300px;min-width:600px;" placeholder="请输入备注"></textarea>
+			</div>
+		</div>
+		
+		
+	</div>
+	<div class="layui-col-md3 layui-col-xs12">
+		<blockquote class="layui-elem-quote title"><i class="layui-icon layui-icon-date"></i> 培训时间</blockquote>
+		<div class="border category">
+			<div class="layui-form-item">
+				<label class="layui-form-label">开始</label>
+				<div class="layui-input-block">
+                    <input type="text" class="layui-input" id="fdStartTime" name="fdStartTime" lay-verify="required" placeholder="请选择培训开始时间" readonly />
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label">结束</label>
+				<div class="layui-input-block">
+                    <input type="text" class="layui-input" id="fdEndTime" name="fdEndTime" lay-verify="required" placeholder="请选择培训结束时间" readonly />
+				</div>
+			</div>
+			
+		</div>
+		<blockquote class="layui-elem-quote title magt10"><i class="layui-icon layui-icon-date"></i> 签到时间</blockquote>
+		<div class="border">
+			<div class="layui-form-item">
+				<label class="layui-form-label">开始</label>
+				<div class="layui-input-block newsStatus">
+					<input type="text" class="layui-input" id="fdSignStartTime" name="fdSignStartTime" lay-verify="required" placeholder="请选择签到开始时间" readonly />
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label">结束</label>
+				<div class="layui-input-block">
+                    <input type="text" class="layui-input" id="fdSignEndTime" name="fdSignEndTime" lay-verify="required" placeholder="请选择签到结束时间" readonly />
+				</div>
+			</div>
+			
+			<hr class="layui-bg-gray" />
+			<div class="layui-right">
+				<a class="layui-btn layui-btn-sm" lay-filter="addTrains" lay-submit><i class="layui-icon">&#xe609;</i>发布</a>
+				<!-- <a class="layui-btn layui-btn-primary layui-btn-sm" lay-filter="look" lay-submit>预览</a> -->
+			</div>
+		</div>
+	</div>
+</form>
+
+<script type="text/html" id="attListBar">
+	<a class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del">删除</a>
+</script>
+
+<script type="text/javascript" src="../../layui/layui.js"></script>
+<script type="text/javascript" src="trainsAdd.js"></script>
+</body>
+</html>

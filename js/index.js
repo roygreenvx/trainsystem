@@ -17,7 +17,11 @@ layui.use(['bodyTab','form','element','layer','jquery'],function(){
 	//通过顶部菜单获取左侧二三级菜单   注：此处只做演示之用，实际开发中通过接口传参的方式获取导航数据
 	function getData(json){
 		$.getJSON(tab.tabConfig.url,function(data){
-			if(json == "contentManagement"){
+			if(json == "trainManagement"){
+				dataStr = data.trainManagement;
+				//重新渲染左侧菜单
+				tab.render();
+			}else if(json == "contentManagement"){
 				dataStr = data.contentManagement;
 				//重新渲染左侧菜单
 				tab.render();
@@ -33,7 +37,21 @@ layui.use(['bodyTab','form','element','layer','jquery'],function(){
                 dataStr = data.seraphApi;
                 //重新渲染左侧菜单
                 tab.render();
-            }
+			} else if (json == "indicatordata") {
+			    dataStr = data.indicatordata;
+			    //重新渲染左侧菜单
+			    tab.render();
+			} else if (json == "reporteddata") {
+			    dataStr = data.reporteddata;
+			    //重新渲染左侧菜单
+			    tab.render();
+			} else if (json == "otherfunction") {
+			    dataStr = data.otherfunction;
+			    //重新渲染左侧菜单
+			    tab.render();
+			}
+
+			
 		})
 	}
 	//页面加载时判断左侧菜单是否显示
@@ -63,15 +81,25 @@ layui.use(['bodyTab','form','element','layer','jquery'],function(){
 	})
 
 	//通过顶部菜单获取左侧二三级菜单   注：此处只做演示之用，实际开发中通过接口传参的方式获取导航数据
-	getData("contentManagement");
+	getData("trainManagement");
 
 	//手机设备的简单适配
-    $('.site-tree-mobile').on('click', function(){
-		$('body').addClass('site-mobile');
+	$('.site-tree-mobile').on('click', function () {
+	    $('body').addClass('site-mobile');
 	});
     $('.site-mobile-shade').on('click', function(){
 		$('body').removeClass('site-mobile');
-	});
+    });
+
+    //获取用户名
+    $.ajax({
+        url: "DataServer/GetUserAjax.aspx?method=GetUsername",
+        type: "get",
+        success: function (data) {
+            $(".userName").html(data);
+            $(".adminName").html(data);
+        }
+    })
 
 	// 添加新窗口
 	$("body").on("click",".layui-nav .layui-nav-item a:not('.mobileTopLevelMenus .layui-nav-item a')",function(){

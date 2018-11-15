@@ -1,0 +1,14 @@
+{
+    "fdid":1,
+    "fdPXName":"培训01",
+    "fdClassHours":3,
+    "fdStartTime":"2018-01-01 09:09:09",
+    "fdEndTime":"2018-02-02 02:02:02",
+    "fdSignStartTime":"2018-01-01 09:09:09",
+    "fdSignEndTime":"2018-02-02 02:02:02",
+    "fdPXType":"2",
+    "fdApproveFlag":1,
+    "fdState":1,
+    "fdNote":"测试",
+    "fdTeacherID":"125"
+}

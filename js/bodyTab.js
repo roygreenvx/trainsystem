@@ -41,7 +41,7 @@ layui.define(["element","jquery"],function(exports){
                         ulHtml += '<i class="layui-icon" data-icon="'+data[i].icon+'">'+data[i].icon+'</i>';
                     }
                 }
-                ulHtml += '<cite>'+data[i].title+'</cite>';
+                ulHtml += '<cite title="' + data[i].title + '">' + data[i].title + '</cite>';
                 ulHtml += '<span class="layui-nav-more"></span>';
                 ulHtml += '</a>';
                 ulHtml += '<dl class="layui-nav-child">';
@@ -58,7 +58,7 @@ layui.define(["element","jquery"],function(exports){
                             ulHtml += '<i class="layui-icon" data-icon="'+data[i].children[j].icon+'">'+data[i].children[j].icon+'</i>';
                         }
                     }
-                    ulHtml += '<cite>'+data[i].children[j].title+'</cite></a></dd>';
+                    ulHtml += '<cite title="' + data[i].children[j].title + '">' + data[i].children[j].title + '</cite></a></dd>';
                 }
                 ulHtml += "</dl>";
             }else{
@@ -74,7 +74,7 @@ layui.define(["element","jquery"],function(exports){
                         ulHtml += '<i class="layui-icon" data-icon="'+data[i].icon+'">'+data[i].icon+'</i>';
                     }
                 }
-                ulHtml += '<cite>'+data[i].title+'</cite></a>';
+                ulHtml += '<cite title="' + data[i].title + '">' + data[i].title + '</cite></a>';
             }
             ulHtml += '</li>';
         }
@@ -152,7 +152,7 @@ layui.define(["element","jquery"],function(exports){
 					return;
 				}
 				tabIdIndex++;
-				title += '<cite>'+_this.find("cite").text()+'</cite>';
+				title += '<cite  title="' + _this.find("cite").text() + '">' + _this.find("cite").text() + '</cite>';
 				title += '<i class="layui-icon layui-unselect layui-tab-close" data-id="'+tabIdIndex+'">&#x1006;</i>';
 				element.tabAdd(tabFilter, {
 			        title : title,

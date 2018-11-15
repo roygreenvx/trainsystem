@@ -33,23 +33,33 @@ layui.use(['form','layer','table','layedit','laydate','upload','formSelects'],fu
     var originData="";
 
     //编辑时初始化赋值
-    if(fdid!=""){
+    if (fdid != "") {
         $.ajax({
-            url: "http://localhost:13389/DataServer/TreeData.aspx?method=LoadEditNew&fdid="+fdid,
-            dataType : 'json',
+            url: "../../DataServer/TreeData.aspx?method=LoadEditNew&fdid=" + fdid,
+            dataType: 'json',
             success: function (result) {
                 //console.log(result);
-                originData=result;
+                originData = result;
                 form.val("form-news", {
                     "fdarticletitle": result.fdarticletitle
-                    ,"fdarticleurl": result.fdarticleurl
-                    ,"fdsource": result.fdsource
-                    ,"fdkeyword": result.fdkeyword
-                    ,"fdpublishdate": result.fdpublishdate.replace('T',' ')
-                    ,"fdimportance": result.fdimportance
-                    ,"fdapproveflag": result.fdapproveflag
+                    , "fdarticleurl": result.fdarticleurl
+                    , "fdsource": result.fdsource
+                    , "fdkeyword": result.fdkeyword
+                    , "fdpublishdate": result.fdpublishdate.replace('T', ' ')
+                    , "fdimportance": result.fdimportance
+                    , "fdapproveflag": result.fdapproveflag
                 });
                 keditor.html(result.fdhtmlcontent);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert(jqXHR.responseText);
+            }
+        });
+    } else {
+        $.ajax({
+            url: "../../DataServer/TreeData.aspx?method=FrunAttachmentS",
+            type: "post",
+            success: function (text) {
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 alert(jqXHR.responseText);
@@ -63,17 +73,17 @@ layui.use(['form','layer','table','layedit','laydate','upload','formSelects'],fu
     });
 
     formSelects.data('select-city', 'server', {
-        url: 'http://localhost:13389/DataServer/GetCityAajax.aspx?method=GetCityDataByfdidJson&fdid='+fdid,
+        url: '../../DataServer/GetCityAajax.aspx?method=GetCityDataByfdidJson&fdid=' + fdid,
     }).btns('select-city', ['remove']);
 
     formSelects.data('select-channel', 'server', {
-        url: 'http://localhost:13389/DataServer/GetChannelAjax.aspx?method=LoadChannelAllTagJsonNew&fdid='+fdid,
+        url: '../../DataServer/GetChannelAjax.aspx?method=LoadChannelAllTagJsonNew&fdid=' + fdid,
     }).btns('select-channel', ['remove']);
 
 
     var tableIns=table.render({
         elem:'#attTable',
-        url:'http://localhost:13389/DataServer/TreeData.aspx?method=LoadEditAttachment&fdid='+fdid,
+        url: '../../DataServer/TreeData.aspx?method=LoadEditAttachment&fdid=' + fdid,
         request: {
             pageName: 'pageIndex', //页码的参数名称，默认：page
             limitName: 'pageSize' //每页数据量的参数名，默认：limit
@@ -124,22 +134,51 @@ layui.use(['form','layer','table','layedit','laydate','upload','formSelects'],fu
     $("#uploadPicAtt").click(function(){
         var guid = new GUID();
         var guiddata = guid.newGUID();
-        document.cookie = "guiddata=" + guiddata;
-        layer.open({
+        document.cookie = "guiddata=" + guiddata + ";path=/Modules;";
+        layui.layer.open({
             type: 2, 
-            title:'添加图片',
+            title: '添加图片',
+            //skin: 'layer-attupload',
             area: ['500px', '200px'],
             btn: ['确定'],
-            content: 'http://localhost:13389/Modules/AddAttachment.aspx?fdIsShowInPage=1&fdid='+fdid,
+            btnAlign: 'c',
+            content: '../../Modules/AddAttachment.aspx?fdIsShowInPage=1&fdid=' + fdid,
             success: function(layero, index){
-                document.cookie = "guiddata=" + guiddata;
-                console.log(layero, index);
+                document.cookie = "guiddata=" + guiddata + ";path=/Modules;";
+                //console.log(layero, index);
             },
             yes: function(index, layero){
-                document.cookie = "guiddata=";
+                document.cookie = "guiddata=;path=/;";
                 keditor.insertHtml('<strong>[PICAttachmentID=' + guiddata + ']</strong>');
                 table.reload("attListTable");
-                layer.close(index); 
+                //tableIns.reload();
+                layui.layer.close(index);
+            }
+        });
+    });
+
+    $("#uploadOtherAtt").click(function () {
+        var guid = new GUID();
+        var guiddata = guid.newGUID();
+        document.cookie = "guiddata=" + guiddata + ";path=/Modules;";
+        layui.layer.open({
+            type: 2,
+            title: '添加图片',
+            //skin: 'layer-attupload',
+            area: ['500px', '200px'],
+            btn: ['确定'],
+            btnAlign: 'c',
+            content: '../../Modules/AddAttachment.aspx?fdIsShowInPage=0&fdid=' + fdid,
+            success: function (layero, index) {
+                document.cookie = "guiddata=" + guiddata + ";path=/Modules;";
+                //console.log(layero, index);
+            },
+            yes: function (index, layero) {
+                document.cookie = "guiddata=;path=/;";
+                keditor.insertHtml('<strong>[AttachmentID=' + guiddata + ']</strong>');
+                table.reload("attListTable");
+                //tableIns.reload();
+                layui.layer.close(index);
             }
         });
     });
@@ -227,10 +266,10 @@ layui.use(['form','layer','table','layedit','laydate','upload','formSelects'],fu
                 })
             })
 
-            var attData=delAttList;
+            var attData = delAttList;
         
             $.ajax({
-                url: "http://localhost:13389/DataServer/TreeData.aspx?method=UpdateArticle",
+                url: "../../DataServer/TreeData.aspx?method=UpdateArticle",
                 type: 'post',
                 data: { 
                     data: JSON.stringify(newsData), 
@@ -242,7 +281,7 @@ layui.use(['form','layer','table','layedit','laydate','upload','formSelects'],fu
                     //console.log(text);
                     top.layer.close(index);
                     top.layer.msg("文章修改成功！");
-                    layer.closeAll("iframe");
+                    parent.layer.closeAll("iframe");
                     //刷新父页面
                     parent.layui.table.reload('newsListTable');
                 },
@@ -277,10 +316,13 @@ layui.use(['form','layer','table','layedit','laydate','upload','formSelects'],fu
                 })
             })
 
-            var attData=delAttList;
+            var attDataAdd = layui.table.cache.attListTable.filter(function (item) {
+                return item.fdid != undefined;
+            });
+            var attData = attDataAdd.concat(delAttList);
 
             $.ajax({
-                url: "http://localhost:13389/DataServer/TreeData.aspx?method=SaveArticle",
+                url: "../../DataServer/TreeData.aspx?method=SaveArticle",
                 type: 'post',
                 data: { 
                     data: JSON.stringify(newsData), 
@@ -291,7 +333,7 @@ layui.use(['form','layer','table','layedit','laydate','upload','formSelects'],fu
                     //console.log(text);
                     top.layer.close(index);
                     top.layer.msg("文章添加成功！");
-                    layer.closeAll("iframe");
+                    parent.layer.closeAll("iframe");
                     //刷新父页面
                     parent.layui.table.reload('newsListTable');
                 },

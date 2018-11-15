@@ -11,10 +11,12 @@
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<meta name="format-detection" content="telephone=no">
 	<link rel="stylesheet" href="../../layui/css/layui.css" media="all" />
+    <link rel="stylesheet" href="../../css/formSelects-v4.css" media="all" />
+    <link rel="stylesheet" href="../../css/cascader.css" media="all" />
 	<link rel="stylesheet" href="../../css/public.css" media="all" />
 	<style>
 		.layui-input, .layui-select, .layui-textarea{
-			height: 30px;
+			height: 20px;
 		}
 		.layui-form-item{
 			margin-bottom: 0px;
@@ -22,6 +24,16 @@
 		body .layer-overflow .layui-layer-content{
 			overflow: visible;
 		}
+	    .layui-form-item .layui-inline {
+            margin-right:0px;
+	    }
+	    .layui-form-item .layui-input-inline {
+            width:130px;
+            margin-right:0px;
+	    }
+	    .layui-input-block > i {
+            top:5px;
+	    }
 	</style>
 </head>
 
@@ -33,6 +45,11 @@
 			<div class="layui-inline">
 				<a class="layui-btn search_btn layui-btn-sm" data-type="reload">搜索</a>
 			</div>
+            <div class="layui-inline">
+				<div class="layui-input-block" style="margin:0;min-height:initial;">
+                    <input type="text" id="select-tree" readonly="readonly" class="layui-input" placeholder="选择栏目" />
+				</div>
+			</div>
 			<div class="layui-inline">
 				<div class="layui-input-inline">
 					<input type="text" class="layui-input searchVal" placeholder="请输入搜索的内容" />
@@ -40,7 +57,7 @@
 			</div>
 			<div class="layui-inline">
 				<div class="layui-input-inline">
-					<select class="select-type" style="width:50px;">
+					<select class="select-type" >
 						<option value="1">标题</option>
 						<option value="2">内容</option>
 						<option value="3">关键词</option>
@@ -53,11 +70,15 @@
 						<option value="">不限(省份)</option>
 					</select>
 				</div>
+			</div>
+            <div class="layui-inline">
 				<div class="layui-input-inline">
 					<select class="select-shi" lay-filter="select-shi">
 						<option value="">不限(地级市)</option>
 					</select>
 				</div>
+			</div>
+            <div class="layui-inline">
 				<div class="layui-input-inline">
 					<select class="select-quxian" lay-filter="select-quxian">
 						<option value="">不限(县级市)</option>
@@ -67,7 +88,7 @@
 			<div class="layui-inline">
 				<div class="layui-input-inline">
 					<select class="select-zhengfumian">
-						<option value="">不限（正负面）</option>
+						<option value="">不限(正负面)</option>
 						<option value="1">未设置</option>
 						<option value="2">优良</option>
 						<option value="3">不良</option>
@@ -77,7 +98,7 @@
 			<div class="layui-inline">
 				<div class="layui-input-inline">
 					<select class="select-fdapproveflag">
-						<option value="">不限（审核状态）</option>
+						<option value="">不限(审核状态)</option>
 						<option value="1">未审核</option>
 						<option value="2">审核通过</option>
 						<option value="3">审核未通过</option>
@@ -89,7 +110,7 @@
 			<div class="layui-inline">
 				<div class="layui-input-inline">
 					<select class="select-inchannel">
-						<option value="">不限（是否在栏目中）</option>
+						<option value="">不限(是否在栏目中)</option>
 						<option value="1">未指定栏目</option>
 						<option value="2">指定栏目</option>
 					</select>
@@ -98,14 +119,9 @@
 			<div class="layui-inline">
 				<div class="layui-input-inline">
 					<select class="select-insubproject">
-						<option value="">不限（子项目）</option>
+						<option value="">不限(子项目)</option>
 						<option value="11111111-1111-1111-1111-111111111131">北京子项目</option>
 					</select>
-				</div>
-			</div>
-			<div class="layui-inline">
-				<div class="layui-input-inline">
-					<input id="select-infosource" type="text" class="layui-input" placeholder="信源" readonly="readonly" />
 				</div>
 			</div>
 			<div class="layui-inline">
@@ -119,6 +135,21 @@
 				<div class="layui-input-inline">
 					<select class="select-approver">
 						<option value="">审核人员</option>
+					</select>
+				</div>
+			</div>
+            <div class="layui-inline">
+				<div class="layui-input-inline">
+					<input id="select-infosource" type="text" class="layui-input" placeholder="信源" readonly="readonly" />
+				</div>
+			</div>
+            <div class="layui-inline">
+				<div class="layui-input-inline">
+					<select class="select-timetype">
+						<option value="">不限(时间类型)</option>
+						<option value="1">发布时间</option>
+						<option value="2">编辑时间</option>
+                        <option value="3">审核时间</option>
 					</select>
 				</div>
 			</div>
@@ -159,28 +190,28 @@
 				</div>
 				<div class="layui-btn-group">
 					<a class="layui-btn layui-btn-normal layui-btn-sm" id="btn_saveNews">保存</a>
-					<a class="layui-btn layui-btn-normal layui-btn-sm">待编辑</a>
-					<a class="layui-btn layui-btn-normal layui-btn-sm">审核通过</a>
-					<a class="layui-btn layui-btn-normal layui-btn-sm">审核不通过</a>
-					<a class="layui-btn layui-btn-normal layui-btn-sm">导出</a>
+					<a class="layui-btn layui-btn-normal layui-btn-sm" id="btn_unedited">待编辑</a>
+					<a class="layui-btn layui-btn-normal layui-btn-sm" id="btn_approved">审核通过</a>
+					<a class="layui-btn layui-btn-normal layui-btn-sm" id="btn_unapproved">审核不通过</a>
+					<!--<a class="layui-btn layui-btn-normal layui-btn-sm">导出</a>-->
 				</div>
-				<div class="layui-btn-group">
+				<!--<div class="layui-btn-group">
 					<a class="layui-btn layui-btn-normal layui-btn-sm">从栏目中删除</a>
 					<a class="layui-btn layui-btn-normal layui-btn-sm">修改所属城市</a>
 					<a class="layui-btn layui-btn-normal layui-btn-sm">批量添加栏目</a>
-				</div>
-				<div class="layui-btn-group">
+				</div>-->
+				<!--<div class="layui-btn-group">
 					<a class="layui-btn layui-btn-normal layui-btn-sm">添加到重大事件</a>
-				</div>
+				</div>-->
 				<!-- <div class="layui-btn-group">
 					<a class="layui-btn layui-btn-normal layui-btn-sm">添加到信息公开栏目</a>
 				</div> -->
-				<div class="layui-btn-group">
+				<!--<div class="layui-btn-group">
 					<a class="layui-btn layui-btn-normal layui-btn-sm">添加到重度信息</a>
-				</div>
-				<div class="layui-btn-group">
+				</div>-->
+				<!--<div class="layui-btn-group">
 					<a class="layui-btn layui-btn-normal layui-btn-sm">批量添加到专题</a>
-				</div>
+				</div>-->
 			</div>
 		</div>
 
@@ -201,7 +232,7 @@
 		<!--操作-->
 		<script type="text/html" id="newsListBar">
 			<a class="layui-btn layui-btn-xs layui-btn-primary" lay-event="look">预览</a>
-			<a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+			<a class="layui-btn layui-btn-xs layui-btn-normal" lay-event="edit">编辑</a>
 			<!-- <a class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del">删除</a> -->
 		</script>
 	</form>
@@ -234,15 +265,17 @@
 		</div>	
 	</div>
 
-	<div id="div-fdarea" class="layui-form" lay-filter="form-fdarea" style="display: none;">
+	<div id="div-fdarea" class="layui-form" lay-filter="form-fdarea" style="width:300px;display: none;">
 		<div class="layui-form-item" style="margin:10px 5px 0px 5px;">
-			<input id="select-fdarea" type="text" class="layui-input" placeholder="请选择"  />
+            <select id="select-fdarea" name="select-fdarea" xm-select="select-fdarea" xm-select-search="" xm-select-radio="" xm-select-height="36px">
+			</select>
 		</div>	
 	</div>
 
-	<div id="div-fdchannel" class="layui-form" lay-filter="form-fdchannel" style="display: none;">
+	<div id="div-fdchannel" class="layui-form" lay-filter="form-fdchannel" style="width:300px;display: none;">
 		<div class="layui-form-item" style="margin:10px 5px 0px 5px;">
-			<input id="select-fdchannel" type="text" class="layui-input" placeholder="请选择"  />
+            <select id="select-fdchannel" name="select-fdchannel" xm-select="select-fdchannel" xm-select-search="" xm-select-radio="" xm-select-height="36px">
+			</select>
 		</div>	
 	</div>
 

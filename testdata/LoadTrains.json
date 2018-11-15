@@ -1,0 +1,72 @@
+{
+    "msg": "success",
+    "code": 0,
+    "total": 5,
+    "data": [
+        {
+            "fdid":1,
+            "fdPXName":"培训01",
+            "fdClassHours":3,
+            "fdStartTime":"2018-01-01 09:09:09",
+            "fdEndTime":"2018-02-02 02:02:02",
+            "fdSignStartTime":"2018-01-01 09:09:09",
+            "fdSignEndTime":"2018-02-02 02:02:02",
+            "fdPXType":1,
+            "fdApproveFlag":1,
+            "fdState":1,
+            "fdNote":"测试"
+        },
+        {
+            "fdid":2,
+            "fdPXName":"培训02",
+            "fdClassHours":3,
+            "fdStartTime":"2018-01-01 09:09:09",
+            "fdEndTime":"2018-02-02 02:02:02",
+            "fdSignStartTime":"2018-01-01 09:09:09",
+            "fdSignEndTime":"2018-02-02 02:02:02",
+            "fdPXType":1,
+            "fdApproveFlag":1,
+            "fdState":1,
+            "fdNote":"测试"
+        },
+        {
+            "fdid":3,
+            "fdPXName":"培训03",
+            "fdClassHours":3,
+            "fdStartTime":"2018-01-01 09:09:09",
+            "fdEndTime":"2018-02-02 02:02:02",
+            "fdSignStartTime":"2018-01-01 09:09:09",
+            "fdSignEndTime":"2018-02-02 02:02:02",
+            "fdPXType":1,
+            "fdApproveFlag":1,
+            "fdState":1,
+            "fdNote":"测试"
+        },
+        {
+            "fdid":4,
+            "fdPXName":"培训04",
+            "fdClassHours":3,
+            "fdStartTime":"2018-01-01 09:09:09",
+            "fdEndTime":"2018-02-02 02:02:02",
+            "fdSignStartTime":"2018-01-01 09:09:09",
+            "fdSignEndTime":"2018-02-02 02:02:02",
+            "fdPXType":1,
+            "fdApproveFlag":1,
+            "fdState":1,
+            "fdNote":"测试"
+        },
+        {
+            "fdid":5,
+            "fdPXName":"培训05",
+            "fdClassHours":3,
+            "fdStartTime":"2018-01-01 09:09:09",
+            "fdEndTime":"2018-02-02 02:02:02",
+            "fdSignStartTime":"2018-01-01 09:09:09",
+            "fdSignEndTime":"2018-02-02 02:02:02",
+            "fdPXType":1,
+            "fdApproveFlag":1,
+            "fdState":1,
+            "fdNote":"测试"
+        }
+    ]
+}
