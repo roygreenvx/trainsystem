@@ -183,7 +183,7 @@ layui.use(['form', 'layer', 'laydate', 'table'], function () {
     //添加文章
     function addNews(edit) {
         var index = layer.open({
-            title: "添加文章",
+            title: "添加培训",
             type: 2,
             content: "trainsAdd.html",
             success: function (layero, index) {
