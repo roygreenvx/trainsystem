@@ -3,19 +3,49 @@ layui.use(['form','layer','jquery'],function(){
         layer = parent.layer === undefined ? layui.layer : top.layer
         $ = layui.jquery;
 
-    $(".loginBody .seraph").click(function(){
-        layer.msg("这只是做个样式，至于功能，你见过哪个后台能这样登录的？还是老老实实的找管理员去注册吧",{
-            time:5000
+    //签到按钮
+    form.on("submit(sign)",function(data){
+        var buttonObject=$(this);
+        buttonObject.text("签到中...").attr("disabled","disabled").addClass("layui-disabled");
+        if(data.field.verifycode==""){
+            alert("请填写验证码！");
+            return false;
+        }
+        $.ajax({
+            //url: "../../DataServer/TreeData.aspx?method=LoadEditNew&fdid=" + fdid,
+            url:'../../testdata/SignSuccess.json',
+            dataType: 'json',
+            success: function (result) {
+                //console.log(result);
+                if(result.code=="0"){
+                    alert("签到成功！");
+                }
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert(jqXHR.responseText);
+            }
         });
+
+        return false;
     })
 
-    //登录按钮
-    form.on("submit(login)",function(data){
-        $(this).text("登录中...").attr("disabled","disabled").addClass("layui-disabled");
-        setTimeout(function(){
-            window.location.href = "/layuicms2.0";
-        },1000);
-        return false;
+    $("#sendSMS").on("click",function(){
+        var phonenum = $("#phone").val();
+        if(!(/^1(3|4|5|7|8)\d{9}$/.test(phonenum))){ 
+            alert("手机号码有误，请重填!");
+            return false; 
+        }
+        var time=30;
+        var button=$("#sendSMS");
+        button.attr("disabled","disabled").addClass("layui-disabled");
+        var t=setInterval(function() {
+            time--;
+            button.text(time+"s");
+            if (time==0) {
+                clearInterval(t);
+                button.text("重新发送").removeAttr("disabled").removeClass("layui-disabled");
+            }
+        },1000)
     })
 
     //表单输入效果
