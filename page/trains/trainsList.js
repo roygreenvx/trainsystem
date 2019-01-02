@@ -1,11 +1,9 @@
-// layui.config({
-//     base: '../../js/' //此处路径请自行处理, 可以使用绝对路径
-// }).extend({
-//     tableSelect: 'tableSelect',
-//     formSelects: 'formSelects-v4',
-//     cascader: 'cascader'
-// });
-layui.use(['form', 'layer', 'laydate', 'table'], function () {
+ layui.config({
+     base: '../../js/' //此处路径请自行处理, 可以使用绝对路径
+ }).extend({
+	 "cookie": 'cookie'
+ });
+layui.use(['form', 'layer', 'laydate', 'table','cookie'], function () {
     var form = layui.form,
         //layer = parent.layer === undefined ? layui.layer : top.layer,
         layer = layui.layer,
@@ -13,10 +11,15 @@ layui.use(['form', 'layer', 'laydate', 'table'], function () {
         laydate = layui.laydate,
         table = layui.table;
 
-    $(document).ready(function(){
+    //$(document).ready(function(){
         //AreaCity_load();//加载地区选项
         //BackUserload();//加载编辑人员选项
-    })
+    //})
+    
+    if((!$.cookie('signusername'))||(!$.cookie('signpassword'))){
+		alert("请登录！");
+		window.top.location.href="../../page/login/login.html";
+	}
 
     var qrcodeinit = new QRCode("qrcodepic");
 
@@ -30,15 +33,32 @@ layui.use(['form', 'layer', 'laydate', 'table'], function () {
         limits: [10, 15, 20, 25],
         loading:true,
         id : "newsListTable",
-        url:'../../testdata/LoadTrains.json',
+        url:'../../Pxinfo/GetPxList',
+        //url:'../../testdata/LoadTrains.json',
+        where:{
+        	sSortField: "fdSignStartTime",
+        	bIsDec:true,
+        },
+        request: {
+            pageName: 'iStartNum', //页码的参数名称，默认：page
+            limitName: 'iPageSize' //每页数据量的参数名，默认：limit
+        },
+//        parseData: function(res){
+//            return{
+//                "code": "0", //解析接口状态
+//                "msg": res.msg, //解析提示文本
+//                "count": "5", //解析数据长度
+//                "data": res.data //解析数据列表
+//            };
+//        },
         cols : [[
             // {type: "checkbox", fixed:"left", width:50},
             {title: '操作',width:130, templet:'#newsListBar',fixed:"left",align:"center"},
-            {field: 'fdid', title: 'ID', width:60, align:"center"},
+            {field: 'fdID', title: 'ID', width:60, align:"center"},
             {field: 'fdPXName', title: '名称', width:200},
             { field: 'fdClassHours', title: '学时', align: 'center' },
-            {field: 'fdStartTime', title: '开始时间', align:'center', minWidth:110},
-            {field: 'fdEndTime', title: '结束时间', align:'center', minWidth:110},
+            //{field: 'fdStartTime', title: '开始时间', align:'center', minWidth:110},
+            //{field: 'fdEndTime', title: '结束时间', align:'center', minWidth:110},
             {field: 'fdSignStartTime', title: '签到开始时间', align:'center', minWidth:120},
             {field: 'fdSignEndTime', title: '签到结束时间', align:'center', minWidth:120},
             {field: 'fdPXType', title: '培训类型',  align:'center' ,templet:function(d){
@@ -99,7 +119,8 @@ layui.use(['form', 'layer', 'laydate', 'table'], function () {
                 // })
             });
         } else if(layEvent === 'look'){ //预览
-            qrcodeinit.makeCode("https://www.baidu.com/s?wd="+data.fdid);
+            //qrcodeinit.makeCode("http://203.207.118.15:8080/QDcms/page/sign/sign.html?id="+data.fdID);
+        	qrcodeinit.makeCode("http://192.168.194.136:8088/QDcms/page/sign/sign.html?id="+data.fdID);
 
             layui.layer.open({
                 type: 1,
@@ -182,14 +203,18 @@ layui.use(['form', 'layer', 'laydate', 'table'], function () {
 
     //添加文章
     function addNews(edit) {
+    	var title="添加培训";
+    	if (edit){
+    		title="修改培训";
+    	}
         var index = layer.open({
-            title: "添加培训",
+            title: title,
             type: 2,
             content: "trainsAdd.html",
             success: function (layero, index) {
                 var body = layer.getChildFrame('body', index);
                 if (edit) {
-                    body.find("#fdid").val(edit.fdid);
+                    body.find("#fdID").val(edit.fdID);
                     // body.find(".newsName").val(edit.newsName);
                     // body.find(".abstract").val(edit.abstract);
                     // body.find(".thumbImg").attr("src",edit.newsImg);

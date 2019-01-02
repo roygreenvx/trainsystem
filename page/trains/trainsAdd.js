@@ -14,26 +14,26 @@ layui.use(['form','layer','table','layedit','laydate','upload'],function(){
         $ = layui.jquery;
     
 
-    var fdid=$("#fdid").val();//文章id
+    var fdID=$("#fdID").val();//文章id
 
     //编辑时初始化赋值
-    if (fdid != "") {
+    if (fdID != "") {
         $.ajax({
-            //url: "../../DataServer/TreeData.aspx?method=LoadEditNew&fdid=" + fdid,
-            url:'../../testdata/OneTrains.json',
+            url: "../../Pxinfo/GetPxInfo/" + fdID,
+            //url:'../../testdata/OneTrains.json',
             dataType: 'json',
             success: function (result) {
                 //console.log(result);
                 form.val("form-trains", {
-                    "fdPXName": result.fdPXName
-                    , "fdTeacherID": result.fdTeacherID
-                    , "fdClassHours": result.fdClassHours
-                    , "fdPXType": result.fdPXType
-                    , "fdNote": result.fdNote
-                    , "fdStartTime": result.fdStartTime
-                    , "fdEndTime": result.fdEndTime
-                    , "fdSignStartTime": result.fdSignStartTime
-                    , "fdSignEndTime": result.fdSignEndTime
+                    "fdPXName": result.data.fdPXName
+                    //, "fdTeacherID": result.fdTeacherID
+                    , "fdClassHours": result.data.fdClassHours
+                    , "fdPXType": result.data.fdPXType
+                    , "fdNote": result.data.fdNote
+                    //, "fdStartTime": result.fdStartTime
+                    //, "fdEndTime": result.fdEndTime
+                    , "fdSignStartTime": result.data.fdSignStartTime
+                    , "fdSignEndTime": result.data.fdSignEndTime
                 });
             },
             error: function (jqXHR, textStatus, errorThrown) {
@@ -63,35 +63,46 @@ layui.use(['form','layer','table','layedit','laydate','upload'],function(){
 
     form.on("submit(addTrains)",function(data){
         //弹出loading
-        //var index = top.layer.msg('数据提交中，请稍候',{icon: 16,time:false,shade:0.8});
+        var index = top.layer.msg('数据提交中，请稍候',{icon: 16,time:false,shade:0.8});
 
-        if(fdid!=""){//编辑
+        if(fdID!=""){//编辑
             var newsData=data.field;
             
             alert(JSON.stringify(newsData));
-            // $.ajax({
-            //     url: "../../DataServer/TreeData.aspx?method=UpdateArticle",
-            //     type: 'post',
-            //     data: newsData,
-            //     success: function (text) {
-            //         //console.log(text);
-            //         top.layer.close(index);
-            //         top.layer.msg("文章修改成功！");
-            //         parent.layer.closeAll("iframe");
-            //         //刷新父页面
-            //         parent.layui.table.reload('newsListTable');
-            //     },
-            //     error: function (jqXHR, textStatus, errorThrown) {
-            //         top.layer.close(index);
-            //         alert(jqXHR.responseText);
-            //         layer.closeAll("iframe");
-            //     }
-            // });
+	         $.ajax({
+	        	 url: "../../Pxinfo/EditPx",
+	        	 //url: "../../DataServer/TreeData.aspx?method=UpdateArticle",
+	             type: 'post',
+	             dataType: 'json',
+	             data: JSON.stringify(newsData),
+	             success: function (result) {
+	                 //console.log(text);
+	            	 if(result.code=="0"){
+	            		 top.layer.close(index);
+		                 top.layer.msg("培训修改成功！");
+		                 parent.layer.closeAll("iframe");
+		                 //刷新父页面
+		                 parent.layui.table.reload('newsListTable');
+	            	 }else{
+	            		 //top.layer.close(index);
+		                 layer.msg("修改失败，请重试！");
+		                 //parent.layer.closeAll("iframe");
+		                 //刷新父页面
+		                 //parent.layui.table.reload('newsListTable');
+	            	 }
+	                 
+	             },
+	             error: function (jqXHR, textStatus, errorThrown) {
+	                 top.layer.close(index);
+	                 alert(jqXHR.responseText);
+	                 layer.closeAll("iframe");
+	             }
+	         });
         }
         else{
 
             var trainsData={};
-            trainsData["fdid"]=data.field.fdid;
+            trainsData["fdID"]=data.field.fdID;
             trainsData["fdPXName"]=data.field.fdPXName;
             trainsData["fdTeacherID"]=data.field.fdTeacherID;
             trainsData["fdClassHours"]=data.field.fdClassHours;

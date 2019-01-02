@@ -1,21 +1,44 @@
-layui.use(['form','layer','jquery'],function(){
+layui.config({
+    base: '../../js/' //此处路径请自行处理, 可以使用绝对路径
+}).extend({
+	"cookie": 'cookie'
+});
+layui.use(['form','layer','jquery','cookie'],function(){
     var form = layui.form,
         layer = parent.layer === undefined ? layui.layer : top.layer
         $ = layui.jquery;
 
-    $(".loginBody .seraph").click(function(){
-        layer.msg("这只是做个样式，至于功能，你见过哪个后台能这样登录的？还是老老实实的找管理员去注册吧",{
-            time:5000
-        });
-    })
-
     //登录按钮
     form.on("submit(login)",function(data){
-        $(this).text("登录中...").attr("disabled","disabled").addClass("layui-disabled");
-        setTimeout(function(){
-            window.location.href = "/layuicms2.0";
-        },1000);
-        return false;
+    	var buttonObject=$(this);
+    	buttonObject.text("登录中...").attr("disabled","disabled").addClass("layui-disabled");
+        $.ajax({
+            url: "../../UserApi/Login",
+            type:'post',
+            dataType: 'json',
+            data:{
+            	userID:data.field.userName,
+            	pwd:data.field.password
+            },
+            success: function (result) {
+            	if(result){
+            		$.cookie('signusername', data.field.userName, { expires: 7 , path: '/QDcms'});
+            		$.cookie('signpassword', data.field.password, { expires: 7 , path: '/QDcms'});
+            		window.location.href="../../index.html";
+            	}
+            	else{
+            		layer.open({
+        			  title: false
+        			  ,content: '登录失败，请检查用户名或密码是否输入正确'
+        			});
+            		buttonObject.text("登录").removeAttr("disabled").removeClass("layui-disabled");
+            	}
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert(jqXHR.responseText);
+                $(this).text("登录").removeAttr("disabled").removeClass("layui-disabled");
+            }
+        });
     })
 
     //表单输入效果

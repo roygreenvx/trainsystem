@@ -5,6 +5,12 @@
 			"icon": "icon-text",
 			"href": "page/trains/trainsList.html",
 			"spread": false
+		},
+		{
+			"title": "签到列表",
+			"icon": "icon-text",
+			"href": "page/trains/signsList.html",
+			"spread": false
 		}
 		
 	],
